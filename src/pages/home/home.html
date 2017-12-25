@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons end>
+     
+      <button class="ion-button" ion-button icon-only (click)="refreshCoins()" id="refresh" color="light">
+        <ion-icon name="sync"></ion-icon>
+      </button>
+
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list *ngIf="coins" style="margin: 1em !important;  ">
+    <ion-item-sliding *ngFor="let coin of objectKeys(coins); let i = index" (ionDrag)="swiped(i)">
+      <ion-item (click)="coinDetails(coin,i)" no-lines *ngIf="allcoins">
+        <ion-avatar item-start *ngIf="allcoins">
+          <img [src]="'https://www.cryptocompare.com'+allcoins[coin].ImageUrl" />
+        </ion-avatar>
+       <div *ngIf="allcoins"> {{ allcoins[coin].FullName }} </div>
+        <div item-end id="info">
+          <ion-note item-end  *ngIf="coins">
+            {{coins[coin].USD | currency:'USD':true}}
+          </ion-note>
+        </div>
+        <ion-icon item-end name="ion-arrow-graph-up-right"></ion-icon>
+      </ion-item>
+      <ion-item-options>
+        <button ion-button (click)="removeCoin(coin)"><ion-icon name="close" class="size"></ion-icon></button>
+      </ion-item-options>
+    <ion-item class="details" *ngIf="detailToggle[i]" no-lines>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <span class="label">Market Cap</span>
+            <span class="answer">{{ details.MKTCAP }}</span>
+          </ion-col>
+          <ion-col>
+            <span class="label">Change (24HR)</span>
+            <span class="answer">{{ details.CHANGE24HOUR }} ({{ details.CHANGEPCT24HOUR }}%)</span>
+          </ion-col>
+          <ion-col class="end">
+            <span class="label">High (24HR)</span>
+            <span class="answer">{{ details.HIGH24HOUR }}</span>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <br>
+            <span class="label">Price (30 Days)</span>
+            <canvas id="canvas{{i}}">{{ chart[i] }}</canvas>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+</ion-item-sliding>
+</ion-list>
+</ion-content>
