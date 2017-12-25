@@ -1,4 +1,5 @@
-This is an Ionic app for cryptocurrencies. 
+This is a hybrid Ionic mobile app for bitcoin analysis. 
+
 
 ## How to install
 
@@ -6,9 +7,9 @@ This is an Ionic app for cryptocurrencies.
 ```bash
 $ sudo npm install -g ionic cordova
 
-$ git clone https://github.com/hsynterkr/CoinFolio.git
+$ git clone https://github.com/hsynterkr/Bitcoin-Price-Ticker-Mobile-App.git
 
-$ cd CoinFolio
+$ cd Bitcoin Price Ticker Mobile App
 
 $ npm install
 
